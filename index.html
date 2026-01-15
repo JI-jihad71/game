@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors - Ultimate Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✊</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="game-title">
+                <span class="title-icon">✊</span>
+                <span class="title-text">Rock Paper Scissors</span>
+                <span class="title-icon">✌️</span>
+            </h1>
+            <p class="tagline">The Ultimate Battle of Wits & Luck</p>
+        </header>
+
+        <!-- Game Modes Selection -->
+        <div class="game-modes">
+            <button class="mode-btn active" data-mode="ai">
+                <i class="fas fa-robot"></i> AI Mode
+            </button>
+            <button class="mode-btn" data-mode="multiplayer">
+                <i class="fas fa-users"></i> Multiplayer
+            </button>
+            <button class="mode-btn" data-mode="timed">
+                <i class="fas fa-clock"></i> Timed Mode
+            </button>
+        </div>
+
+        <!-- AI Mode Selection -->
+        <div class="ai-mode-selection" id="aiModeSelection">
+            <h3><i class="fas fa-brain"></i> AI Intelligence Level</h3>
+            <div class="ai-buttons">
+                <button class="ai-mode-btn active" data-ai="smart">
+                    <i class="fas fa-brain"></i> Smart AI (Predictive)
+                </button>
+                <button class="ai-mode-btn" data-ai="random">
+                    <i class="fas fa-random"></i> Random AI
+                </button>
+            </div>
+        </div>
+
+        <!-- Theme Selector -->
+        <div class="theme-selector">
+            <button class="theme-btn" data-theme="dark">
+                <i class="fas fa-moon"></i> Dark
+            </button>
+            <button class="theme-btn active" data-theme="light">
+                <i class="fas fa-sun"></i> Light
+            </button>
+            <button class="theme-btn" data-theme="neon">
+                <i class="fas fa-lightbulb"></i> Neon
+            </button>
+            <button class="theme-btn" data-theme="retro">
+                <i class="fas fa-gamepad"></i> Retro
+            </button>
+        </div>
+
+        <!-- Main Game Area -->
+        <main class="game-area">
+            <!-- Scoreboard -->
+            <div class="scoreboard">
+                <div class="score-section player-score">
+                    <h3><i class="fas fa-user"></i> Player</h3>
+                    <div class="score-value" id="playerScore">0</div>
+                    <div class="win-streak" id="playerStreak">No Streak</div>
+                </div>
+                
+                <div class="score-section vs-section">
+                    <h2>VS</h2>
+                    <div class="round-info">
+                        <div class="round">Round: <span id="roundCount">1</span></div>
+                        <div class="timer" id="timer">3s</div>
+                    </div>
+                </div>
+                
+                <div class="score-section computer-score">
+                    <h3><i class="fas fa-robot"></i> Computer</h3>
+                    <div class="score-value" id="computerScore">0</div>
+                    <div class="win-streak" id="computerStreak">No Streak</div>
+                </div>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="game-controls">
+                <div class="player-selection">
+                    <h3><i class="fas fa-hand-pointer"></i> Your Choice</h3>
+                    <div class="choice-buttons">
+                        <button class="choice-btn rock-btn" data-choice="rock">
+                            <i class="fas fa-hand-rock"></i> Rock
+                        </button>
+                        <button class="choice-btn paper-btn" data-choice="paper">
+                            <i class="fas fa-hand-paper"></i> Paper
+                        </button>
+                        <button class="choice-btn scissors-btn" data-choice="scissors">
+                            <i class="fas fa-hand-scissors"></i> Scissors
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result Display -->
+                <div class="result-display">
+                    <div class="result-icon" id="resultIcon">⚔️</div>
+                    <h2 class="result-text" id="resultText">Choose Your Weapon!</h2>
+                    <p class="result-desc" id="resultDesc">First to 5 wins the game!</p>
+                    
+                    <div class="combo-display" id="comboDisplay">
+                        <i class="fas fa-fire"></i> <span id="comboText">No Combo</span>
+                    </div>
+                </div>
+
+                <!-- Computer Selection -->
+                <div class="computer-selection">
+                    <h3><i class="fas fa-desktop"></i> Computer Choice</h3>
+                    <div class="computer-choice-display">
+                        <div class="choice-placeholder" id="computerChoice">
+                            <i class="fas fa-question"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn play-btn" id="playBtn">
+                    <i class="fas fa-play"></i> Play Round
+                </button>
+                <button class="action-btn reset-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i> Reset Game
+                </button>
+                <button class="action-btn history-btn" id="historyBtn">
+                    <i class="fas fa-history"></i> Game History
+                </button>
+                <button class="action-btn share-btn" id="shareBtn">
+                    <i class="fas fa-share-alt"></i> Share Score
+                </button>
+            </div>
+
+            <!-- Multiplayer Section (Hidden by Default) -->
+            <div class="multiplayer-section" id="multiplayerSection">
+                <div class="player-names">
+                    <div class="player-name-input">
+                        <label for="player1Name"><i class="fas fa-user"></i> Player 1</label>
+                        <input type="text" id="player1Name" value="Player 1" maxlength="12">
+                    </div>
+                    <div class="vs-text">VS</div>
+                    <div class="player-name-input">
+                        <label for="player2Name"><i class="fas fa-user"></i> Player 2</label>
+                        <input type="text" id="player2Name" value="Player 2" maxlength="12">
+                    </div>
+                </div>
+                
+                <div class="multiplayer-controls">
+                    <div class="player2-selection">
+                        <h3 id="player2NameDisplay">Player 2 Choice</h3>
+                        <div class="choice-buttons">
+                            <button class="choice-btn rock-btn" data-choice="rock" data-player="2">
+                                <i class="fas fa-hand-rock"></i> Rock
+                            </button>
+                            <button class="choice-btn paper-btn" data-choice="paper" data-player="2">
+                                <i class="fas fa-hand-paper"></i> Paper
+                            </button>
+                            <button class="choice-btn scissors-btn" data-choice="scissors" data-player="2">
+                                <i class="fas fa-hand-scissors"></i> Scissors
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Stats -->
+            <div class="game-stats">
+                <div class="stat-box">
+                    <h4><i class="fas fa-trophy"></i> Wins</h4>
+                    <p id="winsCount">0</p>
+                </div>
+                <div class="stat-box">
+                    <h4><i class="fas fa-times-circle"></i> Losses</h4>
+                    <p id="lossesCount">0</p>
+                </div>
+                <div class="stat-box">
+                    <h4><i class="fas fa-handshake"></i> Draws</h4>
+                    <p id="drawsCount">0</p>
+                </div>
+                <div class="stat-box">
+                    <h4><i class="fas fa-chart-line"></i> Win Rate</h4>
+                    <p id="winRate">0%</p>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="achievements-section">
+                <h3><i class="fas fa-medal"></i> Achievements</h3>
+                <div class="achievements-list">
+                    <div class="achievement locked" data-level="10">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Beginner Warrior (10 Wins)</span>
+                    </div>
+                    <div class="achievement locked" data-level="25">
+                        <i class="fas fa-crown"></i>
+                        <span>Master Player (25 Wins)</span>
+                    </div>
+                    <div class="achievement locked" data-level="50">
+                        <i class="fas fa-dragon"></i>
+                        <span>Legend Mode (50 Wins)</span>
+                    </div>
+                </div>
+                <div class="level-indicator">
+                    Level: <span id="playerLevel">1</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- History Panel (Hidden by Default) -->
+        <div class="history-panel" id="historyPanel">
+            <div class="history-header">
+                <h3><i class="fas fa-history"></i> Game History</h3>
+                <button class="close-history" id="closeHistory">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="history-list" id="historyList">
+                <!-- History items will be added here dynamically -->
+                <div class="history-empty">No game history yet. Play some rounds!</div>
+            </div>
+            <div class="history-chart">
+                <h4>Win/Loss Chart</h4>
+                <div class="chart-container">
+                    <div class="chart-bar win-bar" style="height: 0%"></div>
+                    <div class="chart-bar loss-bar" style="height: 0%"></div>
+                    <div class="chart-bar draw-bar" style="height: 100%"></div>
+                </div>
+                <div class="chart-labels">
+                    <span>Wins</span>
+                    <span>Losses</span>
+                    <span>Draws</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with <i class="fas fa-heart"></i> by <strong>Md. Ziaul Islam</strong></p>
+            <p class="tech-stack">
+                <span class="tech">HTML5</span>
+                <span class="tech">CSS3</span>
+                <span class="tech">JavaScript</span>
+            </p>
+            <div class="sound-controls">
+                <button class="sound-btn" id="soundToggle">
+                    <i class="fas fa-volume-up"></i> Sound On
+                </button>
+                <button class="vibration-btn" id="vibrationToggle">
+                    <i class="fas fa-mobile-alt"></i> Vibration On
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Audio Elements -->
+    <audio id="winSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3"></audio>
+    <audio id="loseSound" src="https://assets.mixkit.co/sfx/preview/mixkit-losing-bleeps-2026.mp3"></audio>
+    <audio id="drawSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-show-wrong-answer-buzz-950.mp3"></audio>
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+    <audio id="comboSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
